@@ -1,0 +1,51 @@
+[project]
+name = "task-management-rlvr"
+version = "0.1.0"
+description = "SDLC RLVR case study: train and evaluate an LLM on six executable backend-engineering tasks (FastAPI + PostgreSQL)"
+tags = ["rlvr", "sdlc", "fastapi", "postgresql", "software-engineering", "verifiers"]
+readme = "README.md"
+authors = [{ name = "Enockkipkoech", email = "enockkipkoech19@gmail.com" }]
+requires-python = ">=3.12"
+dependencies = [
+    # RL environment (same stack as environments/pii_masking)
+    "verifiers>=0.4.1",
+    "python-dotenv>=1.2.4",
+    "tinker>=0.37.0",
+    "tinker-cookbook>=0.5.9",
+    # reference API + graders (run inside the evaluator sandbox)
+    "fastapi>=0.162.0",
+    "uvicorn>=0.54.0",
+    "psycopg[binary]>=3.3.8",
+    "pydantic>=2.14.0",
+    "email-validator>=2.3.0",
+    "PyJWT>=2.15.0",
+    "argon2-cffi>=25.1.0",
+    "httpx>=0.28.1",
+    "pytest>=9.2.0",
+    "pytest-cov>=7.1.0",
+    "pyyaml>=6.0.3",
+]
+
+[project.scripts]
+task-management-rlvr = "task_management_rlvr.environment:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/task_management_rlvr"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+markers = [
+    "functional: grader category (50%)",
+    "database: grader category (20%)",
+    "security: grader category (20%)",
+    "quality: grader category (10%)",
+    "hidden: adversarial/edge case never described in the prompt",
+]
+
+[dependency-groups]
+dev = ["pytest>=9.2.0"]

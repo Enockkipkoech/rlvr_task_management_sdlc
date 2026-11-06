@@ -1,0 +1,42 @@
+# Secrets (never commit)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# Test and tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+coverage.json
+htmlcov/
+
+# Run artifacts (training logs, evals, exported datasets)
+runs/
+outputs/
+data/
+wandb/
+
+# Evaluator sandboxes (normally cleaned up automatically)
+tmr_eval_*/
+
+# Docker local data
+pgdata/
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
